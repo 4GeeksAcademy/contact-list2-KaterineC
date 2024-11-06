@@ -44,11 +44,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getContact: async () => {
 				
 				const resp = await fetch (process.env.BACKEND_URL + "/agendas/drastone");
-				const data = await resp.json();
-				
+				const data = await resp.json();				
 				//lo que vamos a actualizar, llamamos ese objeto
-				setStore({contacts:data.contacts})
+				setStore({contacts:data.contacts});
 
+			},
+
+			//creamos contacto
+			createContact: async (newContact) => {
+				const myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+			
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/agendas/drastone/contacts", {
+						method: "POST",
+						headers: myHeaders,
+						body: JSON.stringify(newContact),
+					});
+			
+					if (resp.ok) {
+						await getActions().getContact();
+					} else {
+						console.error("Error en la creación del contacto:");
+					}
+				} catch (error) {
+					console.error("Error de conexión:", error);
+				}
 			}
 		
 		}
