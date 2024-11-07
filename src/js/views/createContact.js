@@ -31,7 +31,6 @@ export const CreateContact = () => {
             </div>
             <div className="d-flex flex-column">
                 <button onClick={async () => {
-
                     await actions.createContact(newContact)
                     navigate("/")
                 }} type="button" className="btn btn-primary">Save</button>
