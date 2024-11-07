@@ -40,13 +40,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			//Ejecutamos el action que va a llenar esos contactos con los amigos
-			
+
 			getContact: async () => {
-				
-				const resp = await fetch (process.env.BACKEND_URL + "/agendas/drastone");
-				const data = await resp.json();				
+
+				const resp = await fetch(process.env.BACKEND_URL + "/agendas/drastone");
+				const data = await resp.json();
+				console.log(data);
 				//lo que vamos a actualizar, llamamos ese objeto
-				setStore({contacts:data.contacts});
+				setStore({ contacts: data.contacts });
 
 			},
 
@@ -54,14 +55,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			createContact: async (newContact) => {
 				const myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
-			
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/agendas/drastone/contacts", {
 						method: "POST",
 						headers: myHeaders,
 						body: JSON.stringify(newContact),
 					});
-			
 					if (resp.ok) {
 						await getActions().getContact();
 					} else {
@@ -71,9 +70,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error de conexión:", error);
 				}
 			}
-		
+
 		}
-		
+
 	};
 };
 
