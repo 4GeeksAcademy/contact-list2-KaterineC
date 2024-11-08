@@ -18,7 +18,7 @@ export const ContactCard = ({ id, phone, email, address, nombre,edit }) => {
                             <div>
                             <button type="button" className="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
                             onClick={() => edit()}>
-                                <i class="fa-solid fa-pencil"></i>
+                                <i className="fa-solid fa-pencil"></i>
                             </button>
 
                             <button className="border-0 bg-light" onClick={() => actions.deleteContact(id)}>

@@ -44,6 +44,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getContact: async () => {
 
 				const resp = await fetch("https://playground.4geeks.com/contact/agendas/drastone");
+				if (!resp.ok){
+					const actions= getActions()
+					await actions.createAgenda()
+					return 
+				}
 				const data = await resp.json();
 				console.log(data);
 				//lo que vamos a actualizar, llamamos ese objeto
@@ -76,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" }
 					})
 					if (resp.status == 201) {
-						await getActions().getContacts()
+						await getActions().getContact()
 					}
 				} catch (error) {
 					console.log(error);
